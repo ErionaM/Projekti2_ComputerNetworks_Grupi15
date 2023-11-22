@@ -1,2 +1,11 @@
 public class UDPServeri{
+
+private int serverPort = 9876;
+
+public static void main(String[] args) {
+        new UDPServer().startServer();
+
+}
+
+ private void startServer() {
 }
