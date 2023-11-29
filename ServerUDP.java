@@ -2,7 +2,7 @@ import java.net.*;
 import java.io.*;
 import java.util.*;
 
-public class UdpServer {
+public class ServerUDP {
     public static void main(String[] args) throws IOException {
         // 1. Të krijohet socket lidhja me server;
         // Krijimi i soket lidhjes
