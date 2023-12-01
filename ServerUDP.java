@@ -65,3 +65,36 @@ public class ServerUDP {
             serverSocket.send(sendPacket);
         }
     }
+
+private static boolean isClientConnected(String clientId) {
+        return connectedClients.contains(clientId);
+    }
+
+    private static String readFile(String filename) {
+        try {
+            Path filePath = Paths.get(DATA_FOLDER + filename);
+            return new String(Files.readAllBytes(filePath));
+        } catch (IOException e) {
+            return "Error reading file: " + e.getMessage();
+        }
+    }
+
+    private static void writeFile(String filename, String content) throws IOException {
+        Path directoryPath = Paths.get(DATA_FOLDER);
+        if (!Files.exists(directoryPath)) {
+            Files.createDirectories(directoryPath);
+        }
+
+        Path filePath = directoryPath.resolve(filename);
+        Files.write(filePath, content.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+    }
+    private static String executeOperation(String filename) {
+        try {
+            Path filePath = Paths.get(DATA_FOLDER + filename);
+            Files.deleteIfExists(filePath);
+            return "File deleted successfully";
+        } catch (IOException e) {
+            return "Error deleting file: " + e.getMessage();
+        }
+    }
+}
