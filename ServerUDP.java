@@ -1,62 +1,67 @@
-import java.net.*;
-import java.io.*;
-import java.util.*;
-
 public class ServerUDP {
+
+
+    private static final String DATA_FOLDER = "./data/";
+    private static final Set<String> FULL_ACCESS_CLIENTS = new HashSet<>(Arrays.asList("Client1"));
+    private static final Set<String> connectedClients = new HashSet<>();
+
     public static void main(String[] args) throws IOException {
-        // 1. Të krijohet socket lidhja me server;
-        // Krijimi i soket lidhjes
-        DatagramSocket ServerSocket = new DatagramSocket(5000);
-        DatagramSocket ServerSocket2 = new DatagramSocket(5001);
+        DatagramSocket serverSocket = new DatagramSocket(4444);
+        System.out.println("Server is running");
 
-        // 4. Të jetë në gjendje të lexoje mesazhet që dërgohen nga klientët;
-        // Leximi i te dhenave
-        byte [] leximiDhena = new byte[1024];
+        while (true) {
+            byte[] receiveData = new byte[1024];
+            DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+            serverSocket.receive(receivePacket);
+            String request = new String(receivePacket.getData(), 0, receivePacket.getLength());
 
-        // Krijimi i pranuesit te paketes
-        DatagramPacket pranuesiDhenave = new DatagramPacket(leximiDhena, leximiDhena.length);
-
-        // 3. Të pranojë kërkesat e pajisjeve që dërgojnë request
-        ServerSocket.receive(pranuesiDhenave);
-        ServerSocket2.receive(pranuesiDhenave);
-
-        // Extract i mesazhi
-        String mesazhi = new String(leximiDhena, 0, pranuesiDhenave.getLength());
-        String mesazhi2 = new String(leximiDhena, 0, pranuesiDhenave.getLength());
-        // Leximi/Shfaqja e mesazhit nga Klienti
-        System.out.println("Mesazhi klientit: " + mesazhi);
-        System.out.println("Mesazhi i klientit (pa priviligje): " + mesazhi2);
-        System.out.println("IP e klientit: " + pranuesiDhenave.getAddress());
-    }
-}
-class Server1 {
-    public static void main (String args[]) throws Exception {
-        System.out.println("Enter Port Number!!!");
-        Scanner input = new Scanner(System.in);
-        int SPort = input.nextInt();
-        DatagramSocket srvskt = new DatagramSocket(SPort);
-        byte[] data = new byte[1024];
-        System.out.println("Enter a full file name to save data to it? ");
-        String path = input.next();
-        System.out.println("file: " + path + "will be created");
-        FileOutputStream FOS = new FileOutputStream(path);
-        DatagramPacket srvpkt = new DatagramPacket(data,1024);
-        System.out.println("Listening to portL " + SPort);
-        int Packetcounter=0;
-
-        while (true){
-            srvskt.receive(srvpkt);
-            Packetcounter++;
-            String words = new String (srvpkt.getData());
-            InetAdress ip = srvpkt.getAddress();
-            int port = srvpkt.getPort();
-            System.out.println("Packet #" + Packetcounter + "Recieved from Host/ port" + ip + "/" + port);
-            FOS.write(data);
-            //out 16.flush();
-            if(Packetcounter >=100)
-            break;
-        }
-        FOS.close();
-        System.out.println("Data has been written to the file!")
+            if (request.contains("TERMINATED")) {
+                String clientId = request.split(":")[0];
+                connectedClients.remove(clientId);
+                continue;
             }
-}
+
+            InetAddress clientAddress = receivePacket.getAddress();
+            int clientPort = receivePacket.getPort();
+
+            // Parse the request
+            String[] parts = request.split(":");
+            String clientId = parts[0];
+            String operation = parts[1];
+            String filename = parts.length > 2 ? parts[2] : "";
+            String content = parts.length > 3 ? parts[3] : "";
+
+
+
+            String response = "";
+
+            if (isClientConnected(clientId)) {
+                response = "CLIENT_ALREADY_CONNECTED_WITH_THIS_ID";
+            } else {
+                connectedClients.add(clientId);
+                System.out.println("Client with ID: " + clientId + " connected");
+                System.out.println("This request was accepted :" + request);
+                if (FULL_ACCESS_CLIENTS.contains(clientId)) {
+                    switch (operation) {
+                        case "read":
+                            response = readFile(filename);
+                            break;
+                        case "write":
+                            writeFile(filename, content);
+                            response = "File written successfully";
+                            break;
+                        case "execute":
+                            response = executeOperation(filename);
+                            break;
+                        default:
+                            response = "Invalid operation";
+                    }
+
+                } else {
+                    response = readFile(filename);
+                }
+            }
+            DatagramPacket sendPacket = new DatagramPacket(response.getBytes(), response.length(), clientAddress, clientPort);
+            serverSocket.send(sendPacket);
+        }
+    }
