@@ -1,3 +1,10 @@
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.*;
+import java.util.Scanner;
+
+
 public class ClientUDP {
     public static void main(String[] args) throws IOException {
         DatagramSocket clientSocket = new DatagramSocket();
@@ -92,3 +99,10 @@ public class ClientUDP {
             System.out.println("Server is not running.");
         }
     }
+
+      private static void SendPacketToServer(String request, InetAddress serverAddress, DatagramSocket clientSocket) throws IOException {
+        DatagramPacket sendPacket = new DatagramPacket(request.getBytes(), request.length(), serverAddress, 4444);
+        clientSocket.send(sendPacket);
+    }
+}
+    
