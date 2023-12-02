@@ -13,9 +13,10 @@ Kur klienti nuk eshte ne rolin e administratorit mundet vetem te lexoj nga fajll
 ##Teknologjite e perdorura
 -Java
 -Socketat UDP
+
 ##Projekti munde te ekzekutohet si ne vazhdim:
 *Ekzekutohet "ServerUDP.java" per te kyçur serverin.
-*Ne nje terminal tjeter, ekzekutohet "ClientUDP.java" per te nisur klintin.
+*Ne nje terminal tjeter, ekzekutohet "ClientUDP.java" per te nisur klientin.
 
 
 
