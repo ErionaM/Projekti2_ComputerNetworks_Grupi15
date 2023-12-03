@@ -1,10 +1,10 @@
 # Projekti2_ComputerNetworks_Grupi15
 
 Ky projekt është bërë për lëndën Rrjetat Kompjuterike. Antarët që punuan në këtë projekt janë:
-Erand Kurtaliqi
-Erblin Gerbeshi
-Eriona Mustafa
-Erisa Cervadiku
+Erand Kurtaliqi,
+Erblin Gerbeshi,
+Eriona Mustafa dhe
+Erisa Cervadiku.
 
 Në vazhdim janë metodat dhe klasat të cilat kemi përsorur për realizimin e projektit:
 
