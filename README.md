@@ -1,8 +1,15 @@
 # Projekti2_ComputerNetworks_Grupi15
 
-Ky projekt është bërë për lëndën Rrjetat Kompjuterike
+Ky projekt është bërë për lëndën Rrjetat Kompjuterike. Antarët që punuan në këtë projekt janë:
+Erand Kurtaliqi
+Erblin Gerbeshi
+Eriona Mustafa
+Erisa Cervadiku
 
-Klasa ClientUDP është pjesë e një programi në Java që implementon një klient përmes protokollit UDP për të komunikuar me një server. Kjo klasë përmban një metodë main dhe një metodë ndihmëse SendPacketToServer.
+Në vazhdim janë metodat dhe klasat të cilat kemi përsorur për realizimin e projektit:
+
+##Klasa ClientUDP
+është pjesë e një programi në Java që implementon një klient përmes protokollit UDP për të komunikuar me një server. Kjo klasë përmban një metodë main dhe një metodë ndihmëse SendPacketToServer.
 
 Metoda main
 Inicializimi i Socket-it dhe adresa e serverit:
