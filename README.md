@@ -128,7 +128,7 @@ Ky është një përshkrim i detajuar për klasën ServerUDP duke përfshirë ç
 
 Ky kod implementon një server dhe një klient përmes protokollit UDP për komunikim. Serveri ka aftësi për të lexuar, shkruar, dhe fshirë skedarë, ndërsa klienti mund të kryejë këto operacione duke lidhur dhe komunikuar me serverin përmes një lidhjeje UDP.
 
-Librarit që kemi përdorur janë:
+## Librarit që kemi përdorur janë:
 
 java.io.IOException: Për trajtimin e përjashtimeve gjatë leximit ose shkrimit të të dhënave nga ose në skedarë.
 
