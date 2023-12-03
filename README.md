@@ -77,6 +77,7 @@ Pranimi i Kërkesave nga Klientët:
 
 byte[] receiveData = new byte[1024];: Krijon një varg bajtësh për të pranuar të dhënat nga klienti.
 DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);: Krijon një objekt DatagramPacket për pranimin e të dhënave nga klienti.
+
 serverSocket.receive(receivePacket);: Blokon ekzekutimin për të pritur derisa të marrë një pako nga klienti.
 String request = new String(receivePacket.getData(), 0, receivePacket.getLength());: Konverton bajtat nga paketa në një string, për të marrë kërkesën nga klienti.
 
@@ -103,26 +104,45 @@ if (isClientConnected(clientId)) { ... } else { ... }: Kontrollon nëse klienti 
 Operacione nëse Klienti është i Lidhur:
 
 DatagramPacket sendPacket = new DatagramPacket(response.getBytes(), response.length(), clientAddress, clientPort);: Krijon një paketë për dërgimin e përgjigjes në adresën dhe portin e klientit.
+
 serverSocket.send(sendPacket);: Dërgon përgjigjen në klient përmes socket-it të serverit.
-Metoda isClientConnected
-Verifikon Lidhjen e Klientit:
+
+Metoda isClientConnected verifikon lidhjen e Klientit:
+
 return connectedClients.contains(clientId);: Kthen true nëse klienti është i lidhur, në të kundërt kthen false.
-Metoda readFile
-Lexon Përmbajtjen e Skedarit:
+
+Metoda readFile lexon përmbajtjen e skedarit:
 Path filePath = Paths.get(DATA_FOLDER + filename);: Krijon një objekt Path duke përdorur rrugën e dosjes dhe emrin e dosjes.
+
 return new String(Files.readAllBytes(filePath));: Kthen përmbajtjen e dosjes si një string.
-Metoda writeFile
-Shkruan përmbajtjen e Skedarit:
+Metoda writeFile shkruan përmbajtjen e skedarit:
+
 Path directoryPath = Paths.get(DATA_FOLDER);: Krijon një objekt Path për dosjen ku do të ruhen skedarët.
 Path filePath = directoryPath.resolve(filename);: Krijon rrugën e plotë të dosjes.
 Files.write(filePath, content.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);: Shkruan përmbajtjen e skedarit, krijon skedarin nëse nuk ekziston dhe e zëvendëson nëse ai ekziston.
-Metoda executeOperation
-Fshin Skedarin:
+
+Metoda executeOperation fshin skedarin:
 Path filePath = Paths.get(DATA_FOLDER + filename);: Krijon një objekt Path duke përdorur rrugën e dosjes dhe emrin e dosjes.
 Files.deleteIfExists(filePath);: Fshin dosjen nëse ajo ekziston.
 Ky është një përshkrim i detajuar për klasën ServerUDP duke përfshirë çdo hap dhe pjesë të rëndësishme të implementimit të saj.
 
 Ky kod implementon një server dhe një klient përmes protokollit UDP për komunikim. Serveri ka aftësi për të lexuar, shkruar, dhe fshirë skedarë, ndërsa klienti mund të kryejë këto operacione duke lidhur dhe komunikuar me serverin përmes një lidhjeje UDP.
+
+Librarit që kemi përdorur janë:
+
+java.io.IOException: Për trajtimin e përjashtimeve gjatë leximit ose shkrimit të të dhënave nga ose në skedarë.
+
+java.net.*: Për lidhjen dhe komunikimin me një adresë URL përmes klasave si URL dhe URLConnection.
+
+java.nio.charset.StandardCharsets: Për konstantet e tipit të karakterit për shpërndarjen e karaktereve në kodimin standard.
+
+java.nio.file.*: Për operacione me skedarë dhe dosje në nivelin e sistemit të skedarëve, duke përfshirë leximin, shkrimin dhe ndryshimin e veçorive të dosjes.
+
+java.util.Arrays: Për operacione me vargje dhe tabele, duke përfshirë sortimin.
+
+java.util.HashSet: Për implementimin e një koleksioni të bazuar në hash set, që ruajt elemente unike.
+
+java.util.Set: Ndërfaqe që paraqet një koleksion pa elemente të dubluara, dhe HashSet është një implementim i saj në këtë kod.
 
 Ky projekt demostron sistemin klient-server permes protokollit UDP.
 Ku klienti i kyçr me id e caktuar "Client1" ka rolin e administratorit, i cili mund te kryej funksionet si read(), write() dhe execute().
