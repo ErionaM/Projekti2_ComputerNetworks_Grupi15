@@ -8,7 +8,7 @@ Erisa Cervadiku
 
 Në vazhdim janë metodat dhe klasat të cilat kemi përsorur për realizimin e projektit:
 
-##Klasa ClientUDP
+## Klasa ClientUDP
 është pjesë e një programi në Java që implementon një klient përmes protokollit UDP për të komunikuar me një server. Kjo klasë përmban një metodë main dhe një metodë ndihmëse SendPacketToServer.
 
 Metoda main
