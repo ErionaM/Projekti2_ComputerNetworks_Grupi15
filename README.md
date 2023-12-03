@@ -61,8 +61,9 @@ Dërgimi i kërkesës te serveri:
 DatagramPacket sendPacket = new DatagramPacket(request.getBytes(), request.length(), serverAddress, 4444);: Krijon një paketë të gatshme për dërgim me kërkesën në server.
 clientSocket.send(sendPacket);: Dërgon kërkesën në server përmes socket-it të klientit.
 
-Server-Side
-Klasa ServerUDP është pjesë e një programi në Java që implementon një server për komunikim me klientë përmes protokollit UDP. Kjo klasë përmban një metodë main dhe disa metoda ndihmëse.
+
+## Klasa ServerUDP
+është pjesë e një programi në Java që implementon një server për komunikim me klientë përmes protokollit UDP. Kjo klasë përmban një metodë main dhe disa metoda ndihmëse.
 
 Metoda main
 Inicializimi i Server Socket-it:
@@ -133,11 +134,11 @@ Nese shtypet funksioni execute() klienti do te fshije nje fajll te cilin e cakto
 
 Kur klienti nuk eshte ne rolin e administratorit mundet vetem te lexoj nga fajlli i zgjedhur.
 
-##Teknologjite e perdorura
+## Teknologjite e perdorura
 -Java
 -Socketat UDP
 
-##Projekti munde te ekzekutohet si ne vazhdim:
+## Projekti munde te ekzekutohet si ne vazhdim:
 *Ekzekutohet "ServerUDP.java" per te kyçur serverin.
 *Ne nje terminal tjeter, ekzekutohet "ClientUDP.java" per te nisur klientin.
 
